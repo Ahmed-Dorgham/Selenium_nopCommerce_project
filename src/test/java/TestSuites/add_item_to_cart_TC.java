@@ -9,7 +9,7 @@ public class add_item_to_cart_TC extends TestBase {
     /*************************************** ........strings...........  *********************************************/
     String firstName = "asdddchde";
     String lastName = "dbdcdsh";
-    String email = "scdchdf@gmail.com";
+    String email = "scff@gmail.com";
     String password = "123456";
     String cityName = "egypt";
     String address = "egypt";

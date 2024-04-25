@@ -21,7 +21,6 @@ public class CheckoutPage {
     private WebDriverWait wait;
     private JavascriptExecutor js;
     private Select select;
-    private Select select2;
     private WebElement cityField;
     private WebElement addressField;
     private WebElement postalCodeField;

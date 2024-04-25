@@ -1,4 +1,4 @@
-package TestCases;
+package TestSuites;
 
 import Pages.*;
 import TestBase.TestBase;

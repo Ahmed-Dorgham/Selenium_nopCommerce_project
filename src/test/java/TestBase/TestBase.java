@@ -1,6 +1,8 @@
 package TestBase;
 
+import UtilitiesMethods.UtilitiesMethods;
 import io.github.bonigarcia.wdm.WebDriverManager;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -11,7 +13,8 @@ import org.testng.annotations.*;
 
 import java.time.Duration;
 
-public class TestBase {
+public class TestBase extends UtilitiesMethods {
+
     public static WebDriver driver;
     public WebDriverWait wait;
 

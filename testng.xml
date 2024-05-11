@@ -6,6 +6,9 @@
         <classes>
             <class name="TestSuites.RegisterationSuite"></class>
             <class name="TestSuites.LoginSuite"></class>
+            <class name="TestSuites.AddItemToWishList_TC"></class>
+            <class name="TestSuites.AddItemToCart_TC"></class>
+            <class name="TestSuites.ChangePassword_TC"></class>
         </classes>
     </test>
 </suite>

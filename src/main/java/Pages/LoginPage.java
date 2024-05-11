@@ -18,15 +18,18 @@ public class LoginPage extends UtilitiesMethods {
         this.driver = driver;
     }
 
-    private WebDriverWait wait;
+    /********************************************  Strings   ******************************************************/
+    String loginPageTitle = "nopCommerce demo store. Login";
 
+    /******************************************************** WebElements *********************************************/
     private WebElement emailField;
     private WebElement passwordField;
     private WebElement loginButton;
     private WebElement loginMsg;
 
+    /********************************************************************************************************************/
     public HomePage login_with_valid_data(String email, String password) {
-        wait_title_to_contain_specific_text(driver, "nopCommerce demo store. Login");
+        wait_title_to_contain_specific_text(driver, loginPageTitle);
         Assert.assertTrue(driver.findElement(By.xpath("//div[@class='page-title']//h1"))
                 .getText().contains("Welcome, Please Sign In!"));
         emailField = driver.findElement(By.id("Email"));
@@ -40,7 +43,7 @@ public class LoginPage extends UtilitiesMethods {
     }
 
     public void login_with_invalid_password(String email, String password) {
-        wait_title_to_contain_specific_text(driver, "nopCommerce demo store. Login");
+        wait_title_to_contain_specific_text(driver, loginPageTitle);
         Assert.assertTrue(driver.findElement(By.xpath("//div[@class='page-title']//h1"))
                 .getText().contains("Welcome, Please Sign In!"));
         emailField = driver.findElement(By.id("Email"));
@@ -50,7 +53,8 @@ public class LoginPage extends UtilitiesMethods {
         wait_for_element_with_locator_to_be_clickable(driver, By.className("login-button"));
         loginButton = driver.findElement(By.className("login-button"));
         click_on_element(loginButton);
-        wait_for_element_with_locator_to_be_visible(driver, By.xpath("//div[@class='message-error validation-summary-errors']"));
+        wait_for_element_with_locator_to_be_visible(driver, By
+                .xpath("//div[@class='message-error validation-summary-errors']"));
         loginMsg = driver.findElement(By.xpath("//div[@class='message-error validation-summary-errors']"));
         System.out.println(loginMsg.getText());
         driver.navigate().back();
@@ -60,7 +64,7 @@ public class LoginPage extends UtilitiesMethods {
     }
 
     public void login_with_invalid_email(String email, String password) {
-        wait_title_to_contain_specific_text(driver, "nopCommerce demo store. Login");
+        wait_title_to_contain_specific_text(driver, loginPageTitle);
         Assert.assertTrue(driver.findElement(By.xpath("//div[@class='page-title']//h1"))
                 .getText().contains("Welcome, Please Sign In!"));
         emailField = driver.findElement(By.id("Email"));
@@ -70,14 +74,14 @@ public class LoginPage extends UtilitiesMethods {
         wait_for_element_with_locator_to_be_clickable(driver, By.className("login-button"));
         loginButton = driver.findElement(By.className("login-button"));
         click_on_element(loginButton);
-        wait_for_element_with_locator_to_be_visible(driver, By.xpath("//div[@class='message-error validation-summary-errors']"));
+        wait_for_element_with_locator_to_be_visible(driver, By
+                .xpath("//div[@class='message-error validation-summary-errors']"));
         loginMsg = driver.findElement(By.xpath("//div[@class='message-error validation-summary-errors']"));
         System.out.println(loginMsg.getText());
-
     }
 
     public void login_with_empty_email(String password) {
-        wait_title_to_contain_specific_text(driver, "nopCommerce demo store. Login");
+        wait_title_to_contain_specific_text(driver, loginPageTitle);
         Assert.assertTrue(driver.findElement(By.xpath("//div[@class='page-title']//h1"))
                 .getText().contains("Welcome, Please Sign In!"));
         passwordField = driver.findElement(By.id("Password"));
@@ -91,7 +95,7 @@ public class LoginPage extends UtilitiesMethods {
     }
 
     public void login_with_empty_password(String email) {
-        wait_title_to_contain_specific_text(driver, "nopCommerce demo store. Login");
+        wait_title_to_contain_specific_text(driver, loginPageTitle);
         Assert.assertTrue(driver.findElement(By.xpath("//div[@class='page-title']//h1"))
                 .getText().contains("Welcome, Please Sign In!"));
         emailField = driver.findElement(By.id("Email"));
@@ -103,8 +107,10 @@ public class LoginPage extends UtilitiesMethods {
         loginMsg = driver.findElement(By.xpath("//div[@class='message-error validation-summary-errors']"));
         System.out.println(loginMsg.getText());
 
-    }    public void login_with_empty_password_and_email() {
-        wait_title_to_contain_specific_text(driver, "nopCommerce demo store. Login");
+    }
+
+    public void login_with_empty_password_and_email() {
+        wait_title_to_contain_specific_text(driver, loginPageTitle);
         Assert.assertTrue(driver.findElement(By.xpath("//div[@class='page-title']//h1"))
                 .getText().contains("Welcome, Please Sign In!"));
         wait_for_element_with_locator_to_be_clickable(driver, By.className("login-button"));
@@ -113,7 +119,5 @@ public class LoginPage extends UtilitiesMethods {
         wait_for_element_with_locator_to_be_visible(driver, By.id("Email-error"));
         loginMsg = driver.findElement(By.id("Email-error"));
         System.out.println(loginMsg.getText());
-
     }
-
 }

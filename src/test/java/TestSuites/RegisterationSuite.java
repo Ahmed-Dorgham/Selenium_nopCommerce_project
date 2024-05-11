@@ -3,22 +3,33 @@ package TestSuites;
 import Pages.WelcomePage;
 import Pages.RegisterPage;
 import TestBase.TestBase;
+import org.apache.commons.lang3.RandomStringUtils;
+import org.testng.Assert;
+import org.testng.annotations.BeforeClass;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
 
 public class RegisterationSuite extends TestBase {
 
-    private WelcomePage welcomePageObject;
-    private RegisterPage registerPageObject;
 
     /**********************************************... strings ...*************************************************/
-    private String firstName = "dadexh";
-    private String lastName = "adsdeexh";
-    private String email = "uepugd@gmail.com";
+
+    private String firstName = RandomStringUtils.randomAlphabetic(5);
+    private String email = RandomStringUtils.randomAlphabetic(5) + "@gmail.com";
+    ;
+    private String lastName = RandomStringUtils.randomAlphabetic(5);
+
+    private String existedEmail;
     private String password = "123456";
     private String differentPassword = "123986";
+    private String registerationSuccessfulMsg = "Your registration completed";
 
+
+
+    /*****************************************************  WebElements  ************************************************************/
+    private WelcomePage welcomePageObject;
+    private RegisterPage registerPageObject;
 
     /*****************************************************************************************************************/
     @BeforeMethod
@@ -35,6 +46,8 @@ public class RegisterationSuite extends TestBase {
 
     @Test(priority = 1, enabled = true)
     private void register_with_valid_data_Tc_01() {
+        email = RandomStringUtils.randomAlphabetic(5) + "@gmail.com";
+        existedEmail = email;
         registerPageObject = welcomePageObject.open_register_page();
         registerPageObject.register_with_valid_data(firstName, lastName, email, password);
     }
@@ -42,7 +55,7 @@ public class RegisterationSuite extends TestBase {
     @Test(priority = 2, enabled = true)
     private void register_with_existed_email_Tc_02() {
         registerPageObject = welcomePageObject.open_register_page();
-        registerPageObject.register_with_existed_email(firstName, lastName, email, password);
+        registerPageObject.register_with_existed_email(firstName, lastName, existedEmail, password);
     }
 
     @Test(priority = 3, enabled = true)

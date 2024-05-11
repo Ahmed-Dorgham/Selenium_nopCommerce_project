@@ -24,15 +24,6 @@ public class UtilitiesMethods {
         element.clear();
     }
 
-    public String read_data_from_properties_file(String filePath, String key) throws IOException {
-        File file = new File(filePath);
-        FileInputStream fileInputStream = new FileInputStream(file);
-        Properties prop = new Properties();
-        prop.load(fileInputStream);
-        prop.getProperty(key);
-        return prop.getProperty(key);
-    }
-
     public void wait_for_element_with_locator_to_be_visible(WebDriver driver, By locator) {
         wait = new WebDriverWait(driver, Duration.ofSeconds(seconds));
         wait.until(ExpectedConditions.visibilityOfElementLocated(locator));
@@ -62,5 +53,12 @@ public class UtilitiesMethods {
         wait = new WebDriverWait(driver, Duration.ofSeconds(seconds));
         wait.until(ExpectedConditions.titleContains(title));
     }
-
+    public static String read_data_from_properties_file(String filePath, String key) throws IOException {
+        File file = new File(filePath);
+        FileInputStream fileInputStream = new FileInputStream(file);
+        Properties prop = new Properties();
+        prop.load(fileInputStream);
+        prop.getProperty(key);
+        return prop.getProperty(key);
+    }
 }

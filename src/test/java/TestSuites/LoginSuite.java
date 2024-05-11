@@ -4,6 +4,7 @@ import Pages.WelcomePage;
 import Pages.LoginPage;
 import Pages.RegisterPage;
 import TestBase.TestBase;
+import org.apache.commons.lang3.RandomStringUtils;
 import org.testng.annotations.BeforeMethod;
 import org.testng.annotations.Test;
 
@@ -13,10 +14,10 @@ public class LoginSuite extends TestBase {
     private RegisterPage registerPageObject;
     private LoginPage loginPageObject;
 
-    /*************************************** ........strings...........  *********************************************/
-    private String firstName = "aedfed";
-    private String lastName = "dafcfeddhf";
-    private String email = "dguepuf@gmail.com";
+    /***************************************             Strings        *********************************************/
+    String firstName = RandomStringUtils.randomAlphabetic(5);
+    private String lastName = RandomStringUtils.randomAlphabetic(5);
+    private String email = RandomStringUtils.randomAlphabetic(5) + "@gmail.com";
     private String invalidEmail = "djf@gmail.com";
     private String password = "123456";
     private String invlaidPassword = "123966";

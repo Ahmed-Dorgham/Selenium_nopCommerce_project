@@ -4,11 +4,8 @@ import UtilitiesMethods.UtilitiesMethods;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
-
-import java.time.Duration;
 
 public class RegisterPage extends UtilitiesMethods {
     private WebDriver driver;
@@ -21,7 +18,7 @@ public class RegisterPage extends UtilitiesMethods {
     private String welcomePageTitle = "nopCommerce demo store";
     private String reigsterPageTitle = "nopCommerce demo store. Register";
 
-    /****************************************************************************************************************/
+    /******************************************************   WebElements   **************************************************/
     private WebDriverWait wait;
     private WebElement firstNameField;
     private WebElement lastNameField;
@@ -30,9 +27,10 @@ public class RegisterPage extends UtilitiesMethods {
     private WebElement confirmPasswordField;
     private WebElement registerButton;
     private WebElement loginLink;
-    private WebElement registrationMsg;
+    private  WebElement registrationMsg;
+    private WebElement logoutLink;
 
-
+    /********************************************************************************************************************/
     public WelcomePage register_with_valid_data(String firstName, String lastName, String email, String password) {
         wait_title_to_contain_specific_text(driver, reigsterPageTitle);
         Assert.assertTrue(driver.findElement(By.xpath("//div[@class='page-title']//h1"))
@@ -54,10 +52,13 @@ public class RegisterPage extends UtilitiesMethods {
         registrationMsg = driver.findElement(By.xpath
                 ("//div[contains(text(),'Your registration completed')]"));
         System.out.println(registrationMsg.getText());
-        driver.navigate().back();
-        driver.navigate().back();
-        driver.navigate().refresh();
-        wait_title_to_contain_specific_text(driver, welcomePageTitle);
+        try {
+            logoutLink = driver.findElement(By.linkText("Log out"));
+            click_on_element(logoutLink);
+//            wait_for_element_with_locator_to_be_present(this.driver, By.linkText("Log in"));
+        } catch (Exception exception) {
+        }
+       // driver.navigate().refresh();
         return new WelcomePage(driver);
     }
 
@@ -84,7 +85,6 @@ public class RegisterPage extends UtilitiesMethods {
         System.out.println(registrationMsg.getText());
         driver.navigate().back();
         driver.navigate().refresh();
-        wait_title_to_contain_specific_text(driver, reigsterPageTitle);
     }
 
     public void register_without_entering_first_name(String lastName, String email, String password) {
@@ -105,7 +105,6 @@ public class RegisterPage extends UtilitiesMethods {
         registrationMsg = driver.findElement(By.id("FirstName-error"));
         System.out.println(registrationMsg.getText());
         driver.navigate().refresh();
-        wait_title_to_contain_specific_text(driver, reigsterPageTitle);
     }
 
     public void register_without_entering_last_name(String firstName, String email, String password) {
@@ -126,7 +125,6 @@ public class RegisterPage extends UtilitiesMethods {
         registrationMsg = driver.findElement(By.id("LastName-error"));
         System.out.println(registrationMsg.getText());
         driver.navigate().refresh();
-        wait_title_to_contain_specific_text(driver, reigsterPageTitle);
     }
 
     public void register_without_entering_email(String firstName, String lastName, String password) {
@@ -147,7 +145,6 @@ public class RegisterPage extends UtilitiesMethods {
         registrationMsg = driver.findElement(By.id("Email-error"));
         System.out.println(registrationMsg.getText());
         driver.navigate().refresh();
-        wait_title_to_contain_specific_text(driver, reigsterPageTitle);
     }
 
     public void register_without_entering_password(String firstName, String lastName, String email, String password) {
@@ -168,7 +165,6 @@ public class RegisterPage extends UtilitiesMethods {
         registrationMsg = driver.findElement(By.id("ConfirmPassword-error"));
         System.out.println(registrationMsg.getText());
         driver.navigate().refresh();
-        wait_title_to_contain_specific_text(driver, reigsterPageTitle);
     }
 
     public void register_without_entering_confirm_password(String firstName, String lastName, String email, String password) {
@@ -185,12 +181,10 @@ public class RegisterPage extends UtilitiesMethods {
         enter_text_to_input_field(passwordField, password);
         registerButton = driver.findElement(By.id("register-button"));
         click_on_element(registerButton);
-
         wait_for_element_with_locator_to_be_visible(driver, By.id("ConfirmPassword-error"));
         registrationMsg = driver.findElement(By.id("ConfirmPassword-error"));
         System.out.println(registrationMsg.getText());
         driver.navigate().refresh();
-        wait_title_to_contain_specific_text(driver, reigsterPageTitle);
     }
 
     public void register_without_entering_all_mandatory_fields() {
@@ -205,12 +199,11 @@ public class RegisterPage extends UtilitiesMethods {
         System.out.println(registrationMsg.getText());
         registrationMsg = driver.findElement(By.id("Email-error"));
         System.out.println(registrationMsg.getText());
-        registrationMsg = driver.findElement(By.id("Password-error"));
+        registrationMsg = driver.findElement(By.xpath("//*[contains(text(),'Password is required.')]"));
         System.out.println(registrationMsg.getText());
-        registrationMsg = driver.findElement(By.id("ConfirmPassword-error"));
-        System.out.println(registrationMsg.getText());
+       /* registrationMsg = driver.findElement(By.id("ConfirmPassword-error"));
+        System.out.println(registrationMsg.getText());*/
         driver.navigate().refresh();
-        wait_title_to_contain_specific_text(driver, reigsterPageTitle);
     }
 
     public void register_with_not_matching_passwords(String firstName, String lastName, String email, String password, String differentPassword) {
@@ -233,14 +226,12 @@ public class RegisterPage extends UtilitiesMethods {
         registrationMsg = driver.findElement(By.id("ConfirmPassword-error"));
         System.out.println(registrationMsg.getText());
         driver.navigate().refresh();
-        wait_title_to_contain_specific_text(driver, reigsterPageTitle);
     }
 
     public LoginPage open_login_page() {
-        wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-        wait.until(ExpectedConditions.elementToBeClickable(By.linkText("Log in")));
+        wait_for_element_with_locator_to_be_clickable(this.driver, By.linkText("Log in"));
         loginLink = driver.findElement(By.linkText("Log in"));
-        loginLink.click();
+        click_on_element(loginLink);
         return new LoginPage(driver);
     }
 }

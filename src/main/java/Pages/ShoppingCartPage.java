@@ -1,45 +1,43 @@
 package Pages;
 
+import UtilitiesMethods.UtilitiesMethods;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
-import java.time.Duration;
-
-public class ShoppingCartPage {
-    /*************************************** ........strings...........  *********************************************/
-    String totalValue ;
-
-    /*************************************** ........strings...........  *********************************************/
+public class ShoppingCartPage extends UtilitiesMethods {
     private WebDriver driver;
-    private WebDriverWait wait;
-    private WebElement termsOfService;
-    private WebElement checkoutButton;
+    private JavascriptExecutor js;
+
     public ShoppingCartPage(WebDriver driver) {
         this.driver = driver;
     }
 
-    public CheckoutPage open_checkout_button() {
-        JavascriptExecutor js = (JavascriptExecutor) driver;
-        wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-        wait.until(ExpectedConditions.titleContains("nopCommerce demo store. Shopping Cart"));
+    /*************************************** ........Strings...........  *********************************************/
+    String shoppingCartPageTitle = "nopCommerce demo store. Shopping Cart";
+
+    /*************************************** ........WebElements...........  *********************************************/
+    private WebElement termsOfService;
+    private WebElement checkoutButton;
+
+    /********************************************************************************************************************/
+    public CheckoutPage open_checkout_page() {
+        js = (JavascriptExecutor) driver;
+        wait_title_to_contain_specific_text(this.driver, shoppingCartPageTitle);
         Assert.assertTrue(driver.findElement(By.xpath("//div[@class='page-title']//h1"))
                 .getText().contains("Shopping cart"));
         js.executeScript("scrollBy(0,2000)");
         termsOfService = driver.findElement(By.id("termsofservice"));
-        termsOfService.click();
+        click_on_element(termsOfService);
         Assert.assertTrue(termsOfService.isSelected());
         checkoutButton = driver.findElement(By.id("checkout"));
-        checkoutButton.click();
-
+        click_on_element(checkoutButton);
         return new CheckoutPage(driver);
     }
-    public String get_total_price_value_in_shopping_cart()
-    {
-        return  driver.findElement(By.xpath("//span[@class='product-subtotal']")).getText();
+
+    public String get_total_price_value_in_shopping_cart() {
+        return driver.findElement(By.xpath("//span[@class='product-subtotal']")).getText();
     }
 }
